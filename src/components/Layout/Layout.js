@@ -1,7 +1,10 @@
 import { Link } from 'gatsby';
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import * as style from './Layout.module.css'
+import * as style from '../../sass/Layout.module.css'
+import HeaderPage from './Header';
+
+
 
 const Layout = (props) =>{
     const {children,title} = props;
@@ -10,12 +13,9 @@ const Layout = (props) =>{
             <Helmet>
                 <title>{title}</title>
             </Helmet>
-            <header className={style.test}>
-                <img src="/imgfile.png"/>
-                <ul>
-                    <li><Link to="/">홈</Link>  </li>
-                    <li> <Link to="/about">소개</Link> </li>
-                </ul>
+            <header>
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+                <HeaderPage />
             </header>
             {children}
             <footer>
