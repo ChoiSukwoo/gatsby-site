@@ -6,7 +6,7 @@ class PageHeader extends React.Component {
     render() {
         return (
             <div className={headerstyle.header}  >
-                <Link to="/index"><strong>Niena's </strong>Blog</Link>
+                <Link to="/"><strong>Niena's </strong>Blog</Link>
                 <ul className={headerstyle.icons}>
                 <li><object type="image/svg+xml" data="git_icon.svg"></object></li>
 
