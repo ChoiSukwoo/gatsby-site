@@ -1,19 +1,17 @@
+import { Link } from 'gatsby';
 import React from 'react'
-import * as headerstyle from '../../sass/Header.module.css'
-import * as mainstyle from '../../sass/Layout.module.css'
+import * as headerstyle from '../../sass/Header.module.scss'
 
 class PageHeader extends React.Component {
     render() {
         return (
-            <div className={[mainstyle.defalutBackground, headerstyle.header].join(' ')}  >
-                <div className={mainstyle.inner}>
-                    <a><strong>Niena's </strong>Blog</a>
-                    <ul className={headerstyle.icons}>
-                        <li>아이콘1</li>
-                        <li>아이콘2</li>
-                        <li>아이콘3</li>
-                    </ul>
-                </div>
+            <div className={headerstyle.header}  >
+                <Link to="/index"><strong>Niena's </strong>Blog</Link>
+                <ul className={headerstyle.icons}>
+                <li><object type="image/svg+xml" data="git_icon.svg"></object></li>
+
+                    <li><object type="image/svg+xml" data="git_icon.svg"></object></li>
+                </ul>
             </div>
         );
     }

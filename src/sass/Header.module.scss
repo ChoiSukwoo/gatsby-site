@@ -1,0 +1,60 @@
+
+    .header{
+    padding-top: 6.5em;
+    display: flex;
+    border-bottom: solid 5px #f56a6a;
+    padding: 6em 0 1em 0;
+
+    @media screen and (max-width: 736PX) {
+        padding-top: 6.5em;
+    }
+
+    @media screen and (max-width: 1280PX) {
+        padding-top: 5em;
+    }
+
+    position: relative;
+        a{
+            border-bottom: 0;
+            color: inherit;
+            flex: 1;
+            font-size : 1.8em;
+
+            transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+            
+            @media screen and (max-width: 736PX) {
+                font-size : 2.3em;
+                margin: 0;
+            }
+        }
+
+
+        .icons{
+            cursor: default;
+            right: 0.5em;
+            top: 0;
+            flex: 1;
+            text-align: right;
+            > li{
+                list-style: none;
+                display: inline-block;
+                padding: 0 1em 0 0;               	
+                object {
+                    height:30px;
+                    width: 30px;
+                }
+            }
+        }
+
+        @media screen and (max-width: 736PX) {
+            .icons{
+
+                height: 5em;
+                line-height: 5em;
+                position: absolute;
+            }        
+        }
+
+    }
+
+    

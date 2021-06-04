@@ -1,10 +1,32 @@
-.defalutBackground{
-    background-color:rgb(255, 245, 245);
+.main{
+	flex-grow: 1;
+	flex-shrink: 1;
 }
 
 .inner{
-    padding: 0 2em 0.1em 2em;
+    background-color:rgb(255, 245, 245);
+	padding: 0 6em 0.1em 6em;
+	margin: 0 auto;
+    max-width: 110em;
+
+	@media screen and (max-width: 1680px) {
+	    padding: 0 5em 0.1em 5em;
+	}
+	@media screen and (max-width: 1280px) {
+	    padding: 0 4em 0.1em 4em;
+	}
+	@media screen and (max-width: 736px) {
+	    padding: 0 2em 0.1em 2em;
+	}
 }
+
+.wrapper{
+	display: flex;
+	flex-direction: row-reverse;
+    min-height: 100vh;
+
+}
+
 
 html, body, div, span, applet, object,
 	iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
@@ -23,7 +45,25 @@ html, body, div, span, applet, object,
 		font-size: 100%;
 		font: inherit;
 		vertical-align: baseline;
+		box-sizing:inherit;
+		text-decoration: none;
 	}
+
+	body, input, select, textarea {
+		color: #7f888f;
+		font-family: "Open Sans", sans-serif;
+		font-size: 13pt;
+		font-weight: 400;
+		line-height: 1.65; }
+		@media screen and (max-width: 1680px) {
+		  body, input, select, textarea {
+			font-size: 11pt; } }
+		@media screen and (max-width: 1280px) {
+		  body, input, select, textarea {
+			font-size: 10pt; } }
+		@media screen and (max-width: 360px) {
+		  body, input, select, textarea {
+			font-size: 9pt; } }
 
 	article, aside, details, figcaption, figure,
 	footer, header, hgroup, menu, nav, section {
