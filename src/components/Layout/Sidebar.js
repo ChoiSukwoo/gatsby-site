@@ -11,8 +11,7 @@ class SideBar extends React.Component {
     render() {
         return (
             <div>
-                <input type="checkbox" id="menuicon" />
-                <div>icon</div>
+                <div className={sidebarStyle.clideIcon}>icon</div>
                 <div className={sidebarStyle.sidebar}>
                     {/*슬라이드 바*/}
                     <div id="slidebar" className={mainStyle.inner}></div>

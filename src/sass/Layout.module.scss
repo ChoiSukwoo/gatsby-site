@@ -1,13 +1,14 @@
 .main{
 	flex-grow: 1;
 	flex-shrink: 1;
+	background-color:rgb(255, 245, 245);
 }
 
 .inner{
-    background-color:rgb(255, 245, 245);
 	padding: 0 6em 0.1em 6em;
-	margin: 0 auto;
+	//맥스값과 마진으로 일정크기 이상 늘어나는것을 방지
     max-width: 110em;
+	margin: 0 auto;
 
 	@media screen and (max-width: 1680px) {
 	    padding: 0 5em 0.1em 5em;
@@ -23,7 +24,7 @@
 .wrapper{
 	display: flex;
 	flex-direction: row-reverse;
-    min-height: 100vh;
+    min-height: 150vh;
 
 }
 
