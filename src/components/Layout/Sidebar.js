@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { debounce } from 'lodash';
 import * as sidebarStyle from '../../sass/Sidebar.module.scss'
 import * as mainStyle from '../../sass/Layout.module.scss'
 // import media from 'styled-media-query'
-
-import MediaQuery from "react-responsive";
-import { useMediaQuery } from "react-responsive";
+import MediaQuery, { useMediaQuery } from "react-responsive";
+// import * as PC from '/tsx/MediaQuery.tsx';
 
 
 
@@ -16,7 +16,7 @@ const SliderButton = (props) => {
     }
 
     return (
-        <div className={sidebarStyle.clickIcon} onClick={slideSideBar} />
+        <div role="button" className={sidebarStyle.clickIcon} onClick={slideSideBar} style={{ marginLeft: `${props.margin}em` }} />
     )
 }
 
@@ -28,49 +28,110 @@ const SliderContext = (props) => {
 
 const SideBar = (props) => {
 
-    const isPc = useMediaQuery({ query: "(min-width: 1024px) and (max-width: 1279px)" });
-    const isTablet = useMediaQuery({ query: "(min-width: 768px) and (max-width: 1023px)" });
-    const isTabletPC = useMediaQuery({ query: "(min-width: 768px) and (max-width: 1279px)" });
-    const isMobileTablet = useMediaQuery({ query: "(max-width: 1023px)" });
-    const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
 
+    const SizeType = {
+        mobile: 736,
+        tablet: 1280,
+        web: 1680
+    }
+
+    const [MarginValue, setMargineValue] = useState();
+    const [SideMargin, setSideMargine] = useState();
+    const [SideState, setSideState] = useState();
+    const [DisplayType, setDisplayType] = useState();
 
 
-    const Xmargine = 26
-
-    const [Xposion, setPostion] = useState(0);
-    const [DisplayType, setDisplay] = useState(props.displayType);
-
-    function slideSideBar() {
-        if (Xposion < 0) {
-            setPostion(0);
+    function slideSideBar(init) {
+        if (init == "open" || SideState == "close") {
+            setSideState("open");
+            setSideMargine(0);
         } else {
-            setPostion(-Xmargine);
+            setSideState("close");
+            setSideMargine(-MarginValue);
         }
     };
 
-    useEffect(() => {
-        setPostion(0);
-    }, []);
+    function settingState() {
+        if (typeof window !== 'undefined') {
+            if (SizeType.mobile > window.innerWidth) {
+                if (DisplayType !== "mobile") {
+                    setDisplayType("mobile");
+                    setMargineValue(24)
+                    if (SideState != "close") {
+                        slideSideBar("close")
+                    }
+                }
+            } else if (SizeType.tablet > window.innerWidth) {
+                if (DisplayType !== "tablet") {
+                    setDisplayType("tablet");
+                    setMargineValue(24)
+                    if (SideState != "close") {
+                        slideSideBar("close")
+                    }
+                }
+            } else if (SizeType.web > window.innerWidth) {
+                if (DisplayType !== "web") {
+                    setDisplayType("web");
+                    setMargineValue(24)
+                    if (SideState != "open") {
+                        slideSideBar("open")
+                    }
+                }
+            } else {
+                if (DisplayType !== "fullscrean") {
+                    setDisplayType("fullscrean");
+                    setMargineValue(26)
+                    if (SideState != "open") {
+                        slideSideBar("open")
+                    }
+                }
+            }
 
-    const web = (
-        <div className={sidebarStyle.sidebar} style={{ marginLeft: `${Xposion}em` }} >
-            <SliderButton slideSideBar={slideSideBar} />
-            {/*슬라이드 바*/}
+        }
+    }
+
+    //windowSize 상태를 생성하고 setWindowSize에 width,height 파라매터를받아 windowSize에 추가하겟다
+    //handleResize 실행시 setWindowSize 실행하여 windowSize에 값을 window.innerWidth 와 window.innerHeight로변경
+    //debounce 를통해 0.5초의 대기시간 추가
+    const handleResize = debounce(() => {
+        settingState()
+    }, 100)
+
+    //useEffect 컴포넌트생성시 윈도우의 resize 발생떄 handleResize추가
+    //다른 useEffect 시 발생을 막기위해 반환떄 삭제
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => { // cleanup 
+            window.removeEventListener('resize', handleResize);
+        }
+    }, [SideState, DisplayType, SideMargin]);
+
+
+    settingState()
+
+
+    const webStyle = (
+        <div className={sidebarStyle.sidebar} style={{ marginLeft: `${SideMargin}em` }} >
             <div class={sidebarStyle.context} >
-                {props.displayType}
+                <SliderButton slideSideBar={slideSideBar} />
+                {DisplayType}<br />
+                {MarginValue}<br />
+                {SideMargin}<br />
+                {SideState}
                 <SliderContext />
             </div>
         </div>
     )
 
-    const mobile = (
-        <div className={sidebarStyle.sidebar} style={{ marginLeft: `-${Xposion}em` }} >
-            <SliderButton slideSideBar={slideSideBar} />
-            {/*슬라이드 바*/}
-            <div class={sidebarStyle.context} >
-                {props.displayType}
+    const mobileStyle = (
+        <div className={sidebarStyle.sidebar}  >
+            <div class={sidebarStyle.context} style={{ marginLeft: `${SideMargin}em` }}>
+                <SliderButton slideSideBar={slideSideBar} />
+                {DisplayType}<br />
+                {MarginValue}<br />
+                {SideMargin}<br />
+                {SideState}
                 <SliderContext />
             </div>
         </div>
@@ -78,7 +139,7 @@ const SideBar = (props) => {
 
 
     return (
-        (props.displayType === "fullscrean" || props.displayType === "web") ? web : mobile
+        (DisplayType == "mobile" || DisplayType == "tablet") ? mobileStyle : webStyle
     );
 
 }
