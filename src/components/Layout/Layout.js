@@ -19,8 +19,7 @@ const Layout = (props) => {
                         <HeaderPage />
                     </header>
                     {children}
-                    <footer>
-                        <p>copylight 2021</p>
+                    <footer>                        
                     </footer>
                 </div>
             </div>
