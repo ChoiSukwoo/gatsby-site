@@ -1,52 +1,72 @@
 
+.checkbox {display:none;}
 
 .sidebar{
     font-size: 0.9em;
-    transition: 0.8s ease;
-}
 
-.clickIcon{
-    position:fixed;
-    width: 3.5em;
-    height: 3.5em;
-    background-color: gray;
-    top: 1em;
-    z-index: 1;
-    margin-left: 27em;
+    &_inner{
+        flex-grow: 0;
+        flex-shrink: 0;
+        background-color: #f5f6f7;
+        position: relative;
+        width: 26em;
+        height: 100%;
+        margin: 0;
+    
+        @media screen and (max-width: 1680px){
+            width: 24em;
+        }
 
-    @media screen and (max-width: 1680px){
-        width: 4em;
-        height: 4em;
-        margin-left: 25em;
+        @media screen and (max-width: 1280px){
+            box-shadow: 0 0 5em 0 rgba(0, 0, 0, 0.18);
+            position: fixed;
+            top: 0;
+            z-index: 10000;
+        }
     }
-}
-     
-
-
-.context{
-    flex-grow: 0;
-    flex-shrink: 0;
-    background-color: #f5f6f7;
-    position: relative;
-    width: 26em;
-    height: 100%;
-    margin: 0;
-    transition: 0.8s;
-
-    @media screen and (max-width: 1680px){
-        width: 24em;
-    }
-    @media screen and (max-width: 1280px){
-        box-shadow: 0 0 5em 0 rgba(0, 0, 0, 0.18);
-        position: fixed;
-        top: 0;
-        z-index: 10000;
-        margin-left: -24em;
+    // - 창이 닫겨있을때
+    input[id="menuicon"] + &_inner{
+        margin-left: -26em;
+        @media screen and (max-width: 1680px){
+            margin-left: -24em;
+        }
     }
 
-    @media screen and (max-width: 736px){
-        position: fixed;
-        top: 0;
-        margin-left: -24em;
+    // - 창이 열려있을때
+    input[id="menuicon"]:checked + &_inner{
+        margin-left: 0em;
+    }
+
+
+    &_menuicon{
+        position:fixed;
+        width: 3.5em;
+        height: 3.5em;
+        background-color: none;
+        top: 1em;
+        z-index: 1;
+        margin-left: 27em;
+        
+        span {display:block;position:absolute;width:50%;height:3px;border-radius:30px;background:#333;transition:all .35s;}
+
+        @media screen and (max-width: 1680px){
+            width: 4em;
+            height: 4em;
+            margin-left: 25em;
+        }
+    }
+
+    // - 창이 닫겨있을때
+    input[id="menuicon"] + * &_menuicon{
+        span:nth-child(1) {top:30%;left:50%;transform:translate(-50%,-50%); }
+        span:nth-child(2) {top:50%;left:50%;transform:translate(-50%,-50%); }
+        span:nth-child(3) {top:70%;left:50%;transform:translate(-50%,-50%); }
+    }
+
+    // - 창이 열려있을떄
+    input[id="menuicon"]:checked + * &_menuicon{
+        span:nth-child(1) {top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg)}
+        span:nth-child(2) {top:50%;left:50%;transform:translate(-50%,-50%); opacity:0;}
+        span:nth-child(3) {top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg)}     
     }
 }
