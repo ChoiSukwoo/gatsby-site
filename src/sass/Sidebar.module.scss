@@ -23,6 +23,10 @@
             top: 0;
             z-index: 10000;
         }
+
+        @media screen and (max-width: 360px){
+            width: 20em;
+        }
     }
     // - 창이 닫겨있을때
     input[id="menuicon"] + &_inner{
@@ -30,8 +34,10 @@
         @media screen and (max-width: 1680px){
             margin-left: -24em;
         }
+        @media screen and (max-width: 360px){
+            margin-left: -20em;
+        }
     }
-
     // - 창이 열려있을때
     input[id="menuicon"]:checked + &_inner{
         margin-left: 0em;
